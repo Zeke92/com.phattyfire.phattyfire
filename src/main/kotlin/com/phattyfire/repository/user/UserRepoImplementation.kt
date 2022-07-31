@@ -1,11 +1,11 @@
-package com.phattyfire.controller.user
+package com.phattyfire.repository.user
 
 import com.phattyfire.data.models.User
 import org.litote.kmongo.coroutine.CoroutineDatabase
 
-class UserControllerImplementation(
+class UserRepoImplementation(
      db: CoroutineDatabase
-) : UserController {
+) : UserRepo {
 
     private val users = db.getCollection<User>()
 

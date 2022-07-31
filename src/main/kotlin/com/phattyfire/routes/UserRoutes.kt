@@ -1,6 +1,6 @@
 package com.phattyfire.routes
 
-import com.phattyfire.controller.user.UserController
+import com.phattyfire.repository.user.UserRepo
 import com.phattyfire.data.models.User
 import com.phattyfire.data.request.CreateAccountRequest
 import com.phattyfire.data.responses.BasicApiResponse
@@ -14,16 +14,15 @@ import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
 
 
-fun Route.userRoutes(){
+fun Route.createUserRoute(userRepo: UserRepo){
 
-    val userController: UserController by inject()
     route("/api/user/create"){
         post {
             val request = call.receiveOrNull<CreateAccountRequest>() ?: kotlin.run {
                 call.respond(HttpStatusCode.BadRequest)
                 return@post
             }
-            val userExist = userController.getUserByEmail(request.email) != null
+            val userExist = userRepo.getUserByEmail(request.email) != null
             if (userExist){
                     call.respond(
                         BasicApiResponse(
@@ -41,12 +40,11 @@ fun Route.userRoutes(){
                 )
                 return@post
             }
-            userController.createUser(
+            userRepo.createUser(
                 User(
                     email = request.email,
                     username = request.username,
                     password = request.password,
-                    skills = "",
                     bio = "",
                     profileImageUrl = ""
                 )

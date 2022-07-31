@@ -1,8 +1,7 @@
 package com.phattyfire.di
 
-import com.phattyfire.controller.user.UserController
-import com.phattyfire.controller.user.UserControllerImplementation
-import com.phattyfire.data.models.User
+import com.phattyfire.repository.user.UserRepo
+import com.phattyfire.repository.user.UserRepoImplementation
 import com.phattyfire.util.Constants
 import org.koin.dsl.module
 import org.litote.kmongo.coroutine.coroutine
@@ -15,8 +14,8 @@ val mainModule = module {
             val client = KMongo.createClient().coroutine
             client.getDatabase(Constants.DATABASE_NAME)
         }
-    single<UserController> {
-        UserControllerImplementation(get())
+    single<UserRepo> {
+        UserRepoImplementation(get())
 
     }
 }

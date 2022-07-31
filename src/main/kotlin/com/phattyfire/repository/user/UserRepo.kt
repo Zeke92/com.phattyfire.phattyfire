@@ -1,8 +1,8 @@
-package com.phattyfire.controller.user
+package com.phattyfire.repository.user
 
 import com.phattyfire.data.models.User
 
-interface UserController {
+interface UserRepo {
 
     suspend fun createUser(user: User)
 

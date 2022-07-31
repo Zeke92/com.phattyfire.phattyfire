@@ -11,6 +11,6 @@ data class User(
     val password: String,
     val profileImageUrl: String,
     val bio: String,
-    val skills: String,
+    val skills: List<String> = listOf()
     //val salt: String
 )

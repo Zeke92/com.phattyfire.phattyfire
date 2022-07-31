@@ -16,6 +16,12 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all{
+    kotlinOptions{
+        jvmTarget = "1.8"
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
@@ -34,8 +40,7 @@ dependencies {
     implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+
 
     ///Kmongo
     implementation("org.litote.kmongo:kmongo:4.6.1")
@@ -44,8 +49,23 @@ dependencies {
 
     /// Koin core features
     implementation ("io.insert-koin:koin-core:3.2.0")
-    testImplementation("io.insert-koin:koin-test:3.2.0")
     implementation("io.insert-koin:koin-ktor:3.2.0")
     implementation("io.insert-koin:koin-logger-slf4j:3.2.0")
 
+    // Test Dependencies
+
+    // Koin
+    testImplementation("io.insert-koin:koin-test:3.2.0")
+    //Truth
+    testImplementation("com.google.truth:truth:1.1.3")
+    //Ktor test
+    testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    //Kotlin test
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    //Gson
+    testImplementation("com.google.code.gson:gson:2.9.0")
+
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
 }
